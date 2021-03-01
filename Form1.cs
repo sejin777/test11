@@ -15,23 +15,11 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using WebDav;
 
-
-/*
- https://hdyj.synology.me:5006
- 
- 
- */
-
 namespace test11
 {
-
-    
-
     public partial class Form1 : Form
     {
-        public static string baseUrl = "https://hdyj.synology.me:5006/home/";
-
-        public static string baseUrl1 = "http://192.168.0.51:8080/";
+        public static string baseUrl = "http://192.168.0.51:8080/";
 
         WebDavClient client;
 
@@ -41,8 +29,8 @@ namespace test11
 
             var clientParams = new WebDavClientParams
             {
-                BaseAddress = new Uri(baseUrl1),
-                Credentials = new NetworkCredential("Sejin", "123123")
+                BaseAddress = new Uri(baseUrl),
+                Credentials = new NetworkCredential("userid", "userpw")
                 //Timeout = new TimeSpan(3000)
             };
 
@@ -74,6 +62,9 @@ namespace test11
         {
             try
             {
+                /*
+                No return value. No response at this point. Infinite waiting.
+                 */
                 var result = await client.Propfind(baseUrl);
 
                 System.Console.WriteLine("--");
@@ -86,22 +77,6 @@ namespace test11
 
         private void button4_Click(object sender, EventArgs e)
         {
-
-            var file = new SmbFile("smb://Sejin:123123@192.168.0.51:8080/ShareName/Folder/FileName.txt");
-
-            //Get readable stream.
-            var readStream = file.GetInputStream();
-
-            //Create reading buffer.
-            var memStream = new MemoryStream();
-
-            //Get bytes.
-            ((Stream)readStream).CopyTo(memStream);
-
-            //Dispose readable stream.
-            readStream.Dispose();
-
-            Console.WriteLine(Encoding.UTF8.GetString(memStream.ToArray()));
 
         }
     }
