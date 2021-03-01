@@ -62,23 +62,7 @@ namespace test11
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-
-            
-
-            var result = client.Propfind("2.txt").Result;
-
            TestPropfind(client);
-
-            //TestWebDav(client).Wait();
-             /*
-            var propfindParams = new PropfindParameters
-            {
-                Namespaces = new[] { new NamespaceAttr("myns", "https://example.com/") },
-                CustomProperties = new[] { XName.Get("myprop", "https://example.com/") }
-            };
-            var result = client.Propfind("http://192.168.0.51:8080/", propfindParams);
-    */
         }
 
         private static async Task TestWebDav(WebDavClient client)
@@ -88,16 +72,6 @@ namespace test11
 
         public static async Task TestPropfind(WebDavClient client)
         {
-            var clientParams = new WebDavClientParams
-            {
-                BaseAddress = new Uri(baseUrl1),
-                Credentials = new NetworkCredential("Sejin", "123123")
-                //Timeout = new TimeSpan(3000)
-            };
-
-            WebDavClient client2 = new WebDavClient(clientParams);
-
-
             try
             {
                 var result = await client.Propfind(baseUrl);
